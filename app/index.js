@@ -1,5 +1,6 @@
 import  express  from "express";
 import cookieParser from "cookie-parser";
+import {sequelize} from './database/database.js';
 //Fix para dirname
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -8,11 +9,19 @@ import { methods as autentication} from "./controllers/autentication.controller.
 import { methods as authorization} from "./middlewares/authorization.js";
 
 
-//Server
+//Conexion a BD
 const app = express();
-app.set("port", 4000);
-app.listen(app.get("port"));
-console.log("Servidor corriendo en:", app.get("port"));
+async function main(params) {
+    try {
+        await sequelize.authenticate();
+        app.set("port", 4000);
+        app.listen(app.get("port"));
+        console.log("Servidor corriendo en:", app.get("port"));
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 //Configuracion
 app.use(express.static(__dirname + "/public"));
@@ -26,3 +35,5 @@ app.get("/register", authorization.soloPublico,(req, res) => res.sendFile(__dirn
 app.get("/admin",authorization.soloAdmin,(req, res) => res.sendFile(__dirname + "/pages/admin/admin.html"));
 app.post("/api/login", autentication.login);
 app.post("/api/register", autentication.register);
+
+main();
