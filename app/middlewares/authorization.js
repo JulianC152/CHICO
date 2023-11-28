@@ -1,6 +1,6 @@
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
-import {usuarios} from "./../controllers/authentication.controller.js";
+import {usuarios} from "./../controllers/autentication.controller.js";
 
 dotenv.config();
 

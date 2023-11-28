@@ -1,4 +1,5 @@
 import  express  from "express";
+import cookieParser from "cookie-parser";
 //Fix para dirname
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -16,7 +17,7 @@ console.log("Servidor corriendo en:", app.get("port"));
 //Configuracion
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-
+app.use(cookieParser());
 
 
 //Rutas

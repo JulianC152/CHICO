@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const usuarios = [{
+export const usuarios = [{
     user: "a",
     email: "a@a.com",
     password: "$2a$05$3HFjZELKAJIpJHvb8QxCIOB.wQ5k0qdS3L//u6gZJPs1xT.bvO4O2"
