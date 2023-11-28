@@ -19,16 +19,23 @@ async function login(req, res){
     }
     const usuarioARevisar = usuarios.find(usuario => usuario.user === user);
     if (!usuarioARevisar) {
-        return res.status(400).send({status:"Error",message:"Error durante el login"})
+        return res.status(400).send({status:"Error",message:"Error durante el login"})//Usuario Incorrecto
     }
-    const loginCorrecto = await bcryptjs.compare(password, usuarioARevisar.password)
+    const loginCorrecto = await bcryptjs.compare(password, usuarioARevisar.password)//Password Incorrecto
     if (!loginCorrecto) {
         return res.status(400).send({status:"Error",message:"Error durante el login"})
     }
-    const token = JsonWebToken.sign({user: usuarioARevisar.user}, 
+    const token = JsonWebToken.sign(
+        {user: usuarioARevisar.user}, 
         process.env.JWT_SECRET, 
-        {expiresIn:process.env.JWT_EXPIRATION})
-    
+        {expiresIn:process.env.JWT_EXPIRATION});
+
+    const cookieOption = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES ** 24 * 60 * 60 * 1000),
+        path: "/"
+    }
+    res.cookie("jwt", token, cookieOption);
+    res.send({status: "ok", message: "Usuario Loggeado"});
 }
 
 async function register(req, res){

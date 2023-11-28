@@ -21,9 +21,6 @@ app.use(express.json());
 //Rutas
 app.get("/", (req, res) => res.sendFile(__dirname + "/pages/login.html"));
 app.get("/register", (req, res) => res.sendFile(__dirname + "/pages/register.html"));
+app.get("/admin",(req, res) => res.sendFile(__dirname + "/pages/admin/admin.html"));
 app.post("/api/login", autentication.login);
 app.post("/api/register", autentication.register);
-
-app.post('/api/register', (req, res) => {
-    console.log(req.body); 
-});
