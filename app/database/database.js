@@ -1,7 +1,7 @@
 import  Sequelize  from "sequelize";
 
 export const sequelize = new Sequelize(
-    'Chico_db',
+    'Bd_Chico',
     'postgres',
     '0000',
     {

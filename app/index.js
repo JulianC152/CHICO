@@ -7,13 +7,14 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 import { methods as autentication} from "./controllers/autentication.controller.js";
 import { methods as authorization} from "./middlewares/authorization.js";
+import "./Users/Models/user.js"
 
 
 //Conexion a BD
 const app = express();
 async function main(params) {
     try {
-        await sequelize.authenticate();
+        await sequelize.sync()
         app.set("port", 4000);
         app.listen(app.get("port"));
         console.log("Servidor corriendo en:", app.get("port"));
